@@ -22,12 +22,12 @@ import java.util.concurrent.*;
 public class SingleItem implements Serializable {
     private Integer value;
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SingleItem that)) return false;
         return Objects.equals(getValue(), that.getValue());
-    }
+    }*/
 
 
 
@@ -40,21 +40,16 @@ public class SingleItem implements Serializable {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        Map<String, Integer> map = Map.of("aaaa", 1);
-        Integer i1 = map.computeIfAbsent("b", k -> {
-            System.out.println("shxlK," + k);
-            return 121;
-        });
-        Integer i2 = map.computeIfPresent("aaaa", (k, v) -> {
-            System.out.println("k = " + k);
-            System.out.println("v = " + v);
-            return 998;
-        });
 
-        System.out.println(map);
 
 
         ConcurrentHashMap<SingleItem,Integer> concurrentHashMap = new ConcurrentHashMap<>();
+
+        for (int i1 = 0; i1 < 3; i1++) {
+            concurrentHashMap.putAll(/*Map.of(new SingleItem(i1),null)*/null);
+        }
+        Integer i1 = concurrentHashMap.get(new SingleItem(89));
+
         ThreadPoolExecutor build = ShxlThreadPool.build();
         CompletableFuture<SingleItem> cf = new CompletableFuture<>();
         int x = 100000000;
@@ -65,8 +60,12 @@ public class SingleItem implements Serializable {
             CompletableFuture<Integer> sa2 = CompletableFuture.supplyAsync(() -> {concurrentHashMap.put(new SingleItem(finalI), finalI); return finalI;},build);
             System.out.println("sa2.join() = " + sa2.join());
             CompletableFuture<Integer> integerCompletableFuture = sa1.thenCombine(sa2, Integer::sum);
+
+
+
             Integer join = integerCompletableFuture.join();
             System.out.println("join = " + join);
         }
+
     }
 }
