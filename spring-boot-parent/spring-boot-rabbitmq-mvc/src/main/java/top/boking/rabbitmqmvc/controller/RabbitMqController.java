@@ -55,7 +55,6 @@ public class RabbitMqController {
         }
         try {
             channel.queueDeclare(dexQueue, true, false, false, null);
-
         } catch (Exception e) {
 
         }
@@ -83,7 +82,7 @@ public class RabbitMqController {
     }
 
     @GetMapping("/bind")
-    public String bind(String ex, String queue, String key) throws IOException {
+    public String bind(String ex, String queue, @RequestParam(required = false, defaultValue = "") String key) throws IOException {
         try {
             RabbitCore.getNewChannel().queueDeclare(queue, true, false, false, null);
         } catch (Exception e) {
@@ -106,16 +105,42 @@ public class RabbitMqController {
         return "ok";
     }
 
+    /**
+     * 带有发布确认功能
+     * @param ex
+     * @param key
+     * @param msg
+     * @param ttl
+     * @return
+     * @throws IOException
+     */
     @GetMapping("/send4ex")
-    public String send4ex(String ex, String key, String msg, String ttl) throws IOException {
+    public String send4ex(String ex, @RequestParam(required = false, defaultValue = "") String key, String msg, String ttl) throws IOException {
         AMQP.BasicProperties build = new AMQP.BasicProperties().builder().expiration(ttl).build();
-        RabbitCore.getNewChannel().basicPublish(ex, key, build, msg.getBytes());
+        Channel newChannel = RabbitCore.getNewChannel();
+        newChannel.confirmSelect();
+        newChannel.addConfirmListener((sequenceNumber, multiple) -> {
+            System.out.println("conform:confirmed:"+sequenceNumber+multiple);
+            // code when message is confirmed
+        }, (sequenceNumber, multiple) -> {
+            System.out.println("conform: nack-ed:"+sequenceNumber+multiple);
+            // code when message is nack-ed
+        });
+        newChannel.basicPublish(ex, key, build, msg.getBytes());
         return "ok";
     }
 
     @GetMapping("/consumer")
-    public String consumer(String queue) {
-        ConsumerCore.consumer(queue);
+    public String consumer(String queue, String type) {
+        ConsumerCore.ConsumerType consumerType = type == null ? ConsumerCore.ConsumerType.none : ConsumerCore.ConsumerType.valueOf(type);
+        ConsumerCore.consumer(queue, consumerType);
+        return "ok";
+    }
+
+    @GetMapping("/consumer1")
+    public String consumer1(String queue, String type) {
+        ConsumerCore.ConsumerType consumerType = type == null ? ConsumerCore.ConsumerType.none : ConsumerCore.ConsumerType.valueOf(type);
+        ConsumerCore.consumer1(queue, consumerType);
         return "ok";
     }
 

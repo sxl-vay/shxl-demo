@@ -21,10 +21,18 @@ public class RabbitCore {
     private static Channel channel;
 
     private static ConnectionFactory factory = new ConnectionFactory();
+    private static Connection connection;
     static {
-        factory.setHost("localhost");
         try {
-            Connection connection = factory.newConnection();
+            factory.setHost("localhost");
+            factory.setVirtualHost("shxl_host");
+            connection = factory.newConnection();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (TimeoutException e) {
+            throw new RuntimeException(e);
+        }
+        try {
             channel = connection.createChannel();
         } catch (Exception e) {
             channel = null;
@@ -33,8 +41,8 @@ public class RabbitCore {
 
     public static Channel getNewChannel() {
         try {
-            return factory.newConnection().createChannel();
-        } catch (IOException | TimeoutException e) {
+            return connection.createChannel();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
