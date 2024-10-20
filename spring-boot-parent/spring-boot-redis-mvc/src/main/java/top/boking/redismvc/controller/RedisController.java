@@ -1,11 +1,14 @@
 package top.boking.redismvc.controller;
 
 import org.redisson.api.RLock;
+import org.redisson.api.RSet;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,17 +26,18 @@ public class RedisController {
 
     @Autowired
     private RedissonClient redissonClient;
+
+    @Autowired
+    private Jedis jedis;
+
+    @Autowired
+    private JedisCluster jedisCluster;
+
     @GetMapping("/t1")
     public Map<String, Object> queue(String name) throws IOException {
-        RLock a = redissonClient.getLock("shxllock");
-        try {
-            if (a.tryLock(100,10, TimeUnit.SECONDS)) {
-                System.out.println("a = " + a);
-            }
-            a.unlock();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return new HashMap<>();
+        RSet<Object> set1 = redissonClient.getSet(name);
+        set1.add("seta");
+        set1.add("setb");
+        return new HashMap<>(){{put("result",set1);}};
     }
 }

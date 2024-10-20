@@ -33,6 +33,7 @@
         <module>spring-boot-parent</module>
         <module>spring-boot-parent/spring-boot-web-test</module>
         <module>rabbitmq-test</module>
+        <module>caffeine-and-jetcache</module>
     </modules>
 
     <dependencies>
@@ -107,6 +108,33 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>3.24.3</version>
+            </dependency>
+
+            <!--内存缓存相关jar （本地缓存）-->
+            <!-- 本地缓存实现：Caffeine -->
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>3.1.8</version>
+            </dependency>
+            <!-- JetCache 核心依赖 -->
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-core</artifactId>
+                <version>2.7.5</version>
+            </dependency>
+
+            <!-- JetCache 与 Spring Boot 集成的自动配置 -->
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-autoconfigure</artifactId>
+                <version>2.7.5</version>
+            </dependency>
+            <!-- 远程缓存实现：Redis -->
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-starter-redis-lettuce</artifactId>
+                <version>2.7.5</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

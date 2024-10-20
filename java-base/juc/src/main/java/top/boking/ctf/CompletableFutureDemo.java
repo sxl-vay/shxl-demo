@@ -1,6 +1,9 @@
 package top.boking.ctf;
 
+import top.boking.ShxlThreadPool;
+
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * CompletableFuture.join 同步等待获取结果
@@ -13,22 +16,23 @@ import java.util.concurrent.CompletableFuture;
 public class CompletableFutureDemo {
 
     public static void main(String[] args) {
+        ThreadPoolExecutor shxlPool = ShxlThreadPool.build();
         // 创建三个异步任务
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
             sleep(1); // 模拟耗时操作
             return "Result 1";
-        });
+        },shxlPool);
         future1.complete("Result 1 手动完成");
 
         CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
             sleep(2); // 模拟耗时操作
             return "Result 2";
-        });
+        },shxlPool);
 
         CompletableFuture<String> future3 = CompletableFuture.supplyAsync(() -> {
             sleep(3); // 模拟耗时操作
             return "Result 3";
-        });
+        },shxlPool);
 
         System.out.println("allOf start");
         // 使用 allOf 来等待所有任务完成
