@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
+    <description>spring及springboot及springweb通用性的展示模块</description>
     <artifactId>spring-boot-web-test</artifactId>
 
     <properties>
