@@ -13,7 +13,7 @@ import redis.clients.jedis.JedisCluster;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @Author shxl
@@ -33,11 +33,42 @@ public class RedisController {
     @Autowired
     private JedisCluster jedisCluster;
 
+    private ThreadPoolExecutor singleThreadEventExecutor = new ThreadPoolExecutor(1,1,0,TimeUnit.SECONDS,new ArrayBlockingQueue<>(100));
+
     @GetMapping("/t1")
     public Map<String, Object> queue(String name) throws IOException {
         RSet<Object> set1 = redissonClient.getSet(name);
         set1.add("seta");
         set1.add("setb");
-        return new HashMap<>(){{put("result",set1);}};
+        return new HashMap<>() {{
+            put("result", set1);
+        }};
     }
+
+
+    @GetMapping("/getLock")
+    public Map<String, Object> getLock(String name) throws Exception {
+        RLock lock = redissonClient.getLock(name+1);
+        boolean b = lock.tryLock();
+        System.out.println(name+" = " + b);
+        return new HashMap<>() {{
+            put("result",b);
+        }};
+    }
+
+    @GetMapping("/unLock")
+    public Map<String, Object> unLock(String name) throws IOException, ExecutionException, InterruptedException {
+        Future<Boolean> submit = singleThreadEventExecutor.submit(() -> {
+            RLock lock = redissonClient.getLock(name);
+            lock.unlock();
+            return true;
+        });
+
+
+        return new HashMap<>() {{
+            put("result", submit.get());
+        }};
+    }
+
+
 }

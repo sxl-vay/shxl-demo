@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * CompletableFuture.join 同步等待获取结果
  * CompletableFuture.get 同上无异常版本
+ * CompletableFuture.handle 异步处理结果，返回一个新的结果对象，着重于异常处理
  * CompletableFuture.thenApply 应用：接受本对象的结果，同时返回一个新对象
  * CompletableFuture.thenAccept 接收：接受本对象的结果，但是返回一个Void的对象（就是不返回结果）
  * CompletableFuture.thenRun 执行：不接受本对象的结果，只返回一个Void对象，相当于本对象任务完成后，单纯跑一段业务逻辑
@@ -23,6 +24,10 @@ public class CompletableFutureDemo {
             return "Result 1";
         },shxlPool);
         future1.complete("Result 1 手动完成");
+        future1.handle((r, e) -> {
+            System.out.println("e = " + e);
+            return r+"handle重置结果，并不会覆盖原值";
+        });
 
         CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> {
             sleep(2); // 模拟耗时操作

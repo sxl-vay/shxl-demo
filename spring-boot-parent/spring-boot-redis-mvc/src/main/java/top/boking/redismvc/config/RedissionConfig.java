@@ -19,15 +19,13 @@ public class RedissionConfig {
     @ConditionalOnMissingBean
     public RedissonClient redisson() {
         Config config = new Config();
-        /*
         SingleServerConfig singleServerConfig = config.useSingleServer();
-        singleServerConfig.setAddress("redis://127.0.0.1:7000");
-        */
-        config.useClusterServers()
+        singleServerConfig.setAddress("redis://127.0.0.1:6379");
+        /*config.useClusterServers()
                 // 添加多个集群节点地址，至少要添加一个主节点地址
                 .addNodeAddress("redis://127.0.0.1:7000",
                         "redis://127.0.0.1:7001",
-                        "redis://127.0.0.1:7002");
+                        "redis://127.0.0.1:7002");*/
         return Redisson.create(config);
     }
 

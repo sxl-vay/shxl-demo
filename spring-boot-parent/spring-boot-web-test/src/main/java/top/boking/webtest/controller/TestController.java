@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.boking.bootstartertest.TestStartConfigFromJar;
 import top.boking.webtest.TestStartConfig;
+import top.boking.webtest.service.AopService;
 
 /**
  * @Author shxl
@@ -23,9 +24,11 @@ public class TestController {
     @Autowired
     private TestStartConfigFromJar ttt;
 
+    @Resource
+    private AopService aopService;
+
     @GetMapping("/a")
     public String a() {
-        String test = testStartConfig.getTest();
-        return "test";
+        return aopService.t1("shxlTest");
     }
 }
