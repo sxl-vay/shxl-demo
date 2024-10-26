@@ -1,4 +1,4 @@
-package top.boking.springbootseatatesttm;
+package top.boking.springbootseatatestrm;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableDubbo
-public class SpringBootSeataTestTmApplication {
+public class SpringBootSeataTestRmApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootSeataTestTmApplication.class, args);
+        SpringApplication.run(SpringBootSeataTestRmApplication.class, args);
     }
 
 }

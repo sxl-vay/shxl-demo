@@ -9,10 +9,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>top.boking</groupId>
-    <artifactId>spring-boot-seata-test-tm</artifactId>
+    <artifactId>spring-boot-seata-test-rm</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-seata-test-tm</name>
-    <description>seata 服务端项目</description>
+    <name>spring-boot-seata-test-rm</name>
+    <description>spring-boot-seata-test-rm</description>
     <properties>
         <java.version>21</java.version>
     </properties>
@@ -79,6 +79,7 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
