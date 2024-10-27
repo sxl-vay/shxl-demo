@@ -162,6 +162,27 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>3.0.3</version>
             </dependency>
+
+            <!--     Mybatis Plus    -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>3.5.5</version>
+            </dependency>
+
+            <!-- MyBatis-Plus Generator -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>3.5.5</version>
+            </dependency>
+
+            <!-- Druid 数据库连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.2.20</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
