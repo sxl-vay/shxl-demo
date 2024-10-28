@@ -2,7 +2,6 @@ package top.boking.springbootseatatestrm.dubboservice;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.rm.tcc.api.BusinessActionContextParameter;
-import io.seata.rm.tcc.api.LocalTCC;
 import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -14,8 +13,8 @@ import top.boking.springbootseatatestrm.dao.service.PostThumbService;
  * @Date 2024/10/27 14:31
  * @Version 1.0
  */
-@DubboService(group = "groupRm")
-public class TccServiceImpl implements TccActionOne {
+@DubboService(group = "groupRm2")
+public class Rm2TccServiceImpl implements TccActionOne {
     @Resource
     private PostThumbService postThumbService;
 

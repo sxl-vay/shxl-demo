@@ -1,6 +1,8 @@
 package top.boking.springbootseatatestrm.dubboservice;
 
+import com.alibaba.fastjson.JSONObject;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import top.boking.dubbo.TestRpc;
 import top.boking.request.DubboRequest;
@@ -18,6 +20,7 @@ import java.util.Objects;
  * @Version 1.0
  */
 @DubboService(group = "groupRm")
+@Slf4j
 public class RmTestRpcServiceImpl implements TestRpc {
     @Resource
     private PostThumbService postThumbService;
@@ -35,7 +38,6 @@ public class RmTestRpcServiceImpl implements TestRpc {
         Long userId = (Long) request.getParams().get("userId");
         if (Objects.equals(9L, userId)) {
             int i = 1/0;
-
         }
         postThumb.setPostId(postId);
         postThumb.setUserId(userId);
@@ -44,6 +46,7 @@ public class RmTestRpcServiceImpl implements TestRpc {
         if (save) {
             return DubboResponse.success(new HashMap<>());
         }
+        log.info("rpcTemplate finish:{}", JSONObject.toJSONString(request));
         return DubboResponse.fail(null);
     }
 

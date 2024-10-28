@@ -30,6 +30,10 @@ public class SeataService {
 //    @Resource
     private TccActionOne tccActionOne;
 
+    @DubboReference(group = "groupRm2")
+//    @Resource
+    private TccActionOne tccActionOne2;
+
     @Resource
     private PostService postService;
 
@@ -53,7 +57,13 @@ public class SeataService {
     public String tcc(Post post) {
         BusinessActionContext actionContext = new BusinessActionContext();
 
-        tccActionOne.prepare(actionContext,post.getTitle());
+        DubboRequest<Map<String,Object>> request = new DubboRequest<>();
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("postId",post.getId());
+        params.put("userId",post.getUserId());
+        request.setParams(params);
+        DubboResponse<Map<String, Object>> mapDubboResponse = testRpc.rpcTemplate(request);
+        tccActionOne2.prepare(actionContext,post.getTitle());
         return "error";
     }
 
