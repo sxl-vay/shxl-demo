@@ -11,6 +11,15 @@
     <packaging>pom</packaging>
     <artifactId>spring-boot-parent</artifactId>
 
+    <modules>
+        <module>spring-boot-seata-test-rm</module>
+        <module>spring-boot-seata-test-rm2</module>
+        <module>spring-boot-seata-test-tm</module>
+        <module>spring-boot-web-test</module>
+        <module>spring-boot-redis-mvc</module>
+        <module>spring-boot-jetcache-mvc</module>
+        <module>spring-boot-rabbitmq-mvc</module>
+    </modules>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>

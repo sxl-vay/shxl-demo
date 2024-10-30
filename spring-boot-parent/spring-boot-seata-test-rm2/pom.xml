@@ -9,10 +9,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>top.boking</groupId>
-    <artifactId>spring-boot-seata-test-rm</artifactId>
+    <artifactId>spring-boot-seata-test-rm2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-seata-test-rm</name>
-    <description>spring-boot-seata-test-rm</description>
+    <name>spring-boot-seata-test-rm2</name>
+    <description>spring-boot-seata-test-rm2</description>
     <properties>
         <java.version>21</java.version>
     </properties>
