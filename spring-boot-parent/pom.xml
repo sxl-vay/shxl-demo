@@ -70,6 +70,12 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.2.22</version>
         </dependency>
+
+        <dependency>
+            <groupId>top.boking</groupId>
+            <artifactId>base-local-config</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

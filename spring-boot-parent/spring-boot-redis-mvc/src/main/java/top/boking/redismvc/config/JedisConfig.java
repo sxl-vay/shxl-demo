@@ -1,5 +1,6 @@
 package top.boking.redismvc.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,17 +18,21 @@ import java.util.Set;
  */
 @Configuration
 public class JedisConfig {
+
+    @Value("${base.redis.ip}")
+    private String ip;
+
     @Bean
     @ConditionalOnMissingBean
     public Jedis jedis() {
-        return new Jedis(new HostAndPort("127.0.0.1", 7000));
+        return new Jedis(new HostAndPort(ip, 7000));
     }
 
     @Bean
     @ConditionalOnMissingBean
     public JedisCluster jedisCluster() {
         Set<HostAndPort> clusterNodes = new HashSet<>();
-        clusterNodes.add(new HostAndPort("127.0.0.1", 7000));
+        clusterNodes.add(new HostAndPort(ip, 7000));
         JedisCluster jedisCluster = new JedisCluster(clusterNodes);
         return jedisCluster;
     }

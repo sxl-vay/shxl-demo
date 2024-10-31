@@ -2,6 +2,7 @@ package top.boking.webtest.controller;
 
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,11 @@ public class TestController {
     @Resource
     private AopService aopService;
 
+    @Value("${spring.datasource.url}")
+    private String p;
+
     @GetMapping("/a")
     public String a() {
-        return aopService.t1("shxlTest");
+        return aopService.t1(p);
     }
 }

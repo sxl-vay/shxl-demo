@@ -1,7 +1,0 @@
-#spring.application.name=spring-boot-seata-test-tm
-#server.port=1121
-#seata.data-source-proxy-mode=XA
-#service.default.grouplist=127.0.0.1:8091
-#service.vgroupMapping.default_tx_group=default
-## seata.enable-auto-data-source-proxy=false
-#spring.cloud.nacos.config.import-check.enabled=false

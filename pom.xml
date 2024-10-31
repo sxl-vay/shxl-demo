@@ -34,8 +34,8 @@
         <module>spring-boot-parent/spring-boot-web-test</module>
         <module>rabbitmq-test</module>
         <module>caffeine-and-jetcache</module>
-        <module>spring-boot-parent/dubbo-api-jar</module>
         <module>spring-boot-starter-shxl-test</module>
+        <module>base-jar-parent</module>
     </modules>
 
     <dependencies>

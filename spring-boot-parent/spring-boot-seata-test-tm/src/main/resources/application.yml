@@ -27,7 +27,7 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${base.host}:8848
         group: seata
         namespace: a167d1a5-9427-4f78-a488-caab48aed290
 
@@ -39,7 +39,7 @@ seata:
   config:
     type: nacos
     nacos:
-      server-addr: 127.0.0.1:8848
+      server-addr: ${base.host}:8848
       group: seata
       data-id: seataServer.properties
       namespace: a167d1a5-9427-4f78-a488-caab48aed290
@@ -47,7 +47,7 @@ seata:
     type: nacos
     nacos:
       application: seata-server
-      server-addr: 127.0.0.1:8848
+      server-addr: ${base.host}:8848
       group: seata
       cluster: default
       namespace: a167d1a5-9427-4f78-a488-caab48aed290
@@ -63,7 +63,7 @@ dubbo:
     port: 50052
     name: tri
   registry:
-    address: nacos://127.0.0.1:8848?username=nacos&password=nacos
+    address: nacos://${base.host}:8848?username=nacos&password=nacos
     parameters:
       namespace: 90099803-50cd-469c-a064-dab6010ad773
       group: dubbo #首次启动前务必修改成你自己的
