@@ -36,6 +36,7 @@
         <module>caffeine-and-jetcache</module>
         <module>spring-boot-starter-shxl-test</module>
         <module>base-jar-parent</module>
+        <module>leetcode</module>
     </modules>
 
     <dependencies>
