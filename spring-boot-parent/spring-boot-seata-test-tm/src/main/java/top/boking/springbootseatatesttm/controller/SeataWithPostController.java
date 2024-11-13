@@ -1,10 +1,12 @@
 package top.boking.springbootseatatesttm.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 import top.boking.springbootseatatesttm.dao.domain.Post;
 import top.boking.springbootseatatesttm.service.PostService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +29,12 @@ public class SeataWithPostController {
     public String add(@RequestBody Post post) {
         boolean save = postService.save(post);
         return "ok";
+    }
+
+    @PostMapping("query")
+    public List<Post> query(@RequestBody Post post) {
+        return postService.list(new Page<>(1, 1));
+
     }
 
 }

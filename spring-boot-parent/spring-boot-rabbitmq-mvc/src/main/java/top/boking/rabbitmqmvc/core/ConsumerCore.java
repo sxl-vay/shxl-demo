@@ -63,7 +63,7 @@ public class ConsumerCore {
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                     String message = new String(body, StandardCharsets.UTF_8);
                     System.out.println("Received from " + queueName + ": " + message);
-                   // channel.basicNack(envelope.getDeliveryTag(), false,false);  // 手动确认消息
+                    channel.basicNack(envelope.getDeliveryTag(), false,false);  // 手动确认消息
                 }
             };
             channel.basicConsume(queueName, false, consumer);

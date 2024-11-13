@@ -95,12 +95,6 @@ public class RabbitMqController {
     @GetMapping("/send4queue")
     public String send4queue(String queue, String msg, String ttl) throws IOException {
         AMQP.BasicProperties build = new AMQP.BasicProperties().builder().expiration(ttl).build();
-        Channel newChannel = RabbitCore.getNewChannel();
-        try {
-            channel.queueDeclare(queue, true, false, false, null);
-        } catch (Exception e) {
-
-        }
         RabbitCore.getNewChannel().basicPublish("", queue, build, msg.getBytes());
         return "ok";
     }

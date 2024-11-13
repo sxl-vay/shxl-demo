@@ -3,6 +3,7 @@ package top.boking.bootstartertest;
 import lombok.Data;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @Author shxl
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
  * @Version 1.0
  */
 @Data
+//@Configuration
 public class TestStartConfigFromJar implements BeanNameAware {
     private String test;
 

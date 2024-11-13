@@ -1,4 +1,4 @@
-package top.boking.webtest;
+package top.boking.webtest.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

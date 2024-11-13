@@ -23,7 +23,7 @@ spring:
       pool-prepared-statements: true # 是否开启预处理语句池。预处理语句池可以提高性能，特别是在执行相同SQL语句多次时。默认为true。
       max-pool-prepared-statement-per-connection-size: 20 #每个连接上允许的最大预处理语句数。默认值为20。
   config:
-    import: "nacos:seata-tms"
+    import: nacos:seata-tms,classpath:base.yml
   cloud:
     nacos:
       config:

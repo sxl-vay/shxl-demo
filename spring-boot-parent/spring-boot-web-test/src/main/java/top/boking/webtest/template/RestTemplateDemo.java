@@ -1,4 +1,4 @@
-package top.boking.webtest;
+package top.boking.webtest.template;
 
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;

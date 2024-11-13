@@ -36,8 +36,8 @@ public class SumTask extends RecursiveTask<Long> {
         }
     }
 
-    public static void main(String[] args) {
-        int[] array = new int[10000];
+    public static void mains(String[] args) {
+        int[] array = new int[10000000];
         for (int i = 0; i < array.length; i++) {
             array[i] = i;
         }

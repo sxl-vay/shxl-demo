@@ -37,6 +37,8 @@
         <module>spring-boot-starter-shxl-test</module>
         <module>base-jar-parent</module>
         <module>leetcode</module>
+        <module>spring-boot-parent/spring-boot-shardingjdbc-shxl</module>
+        <module>java-base/nio</module>
     </modules>
 
     <dependencies>
@@ -45,6 +47,12 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+            <version>2.14.4</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -185,6 +193,14 @@
                 <artifactId>druid</artifactId>
                 <version>1.2.20</version>
             </dependency>
+
+            <!--数据加密-->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>4.4.0</version> <!-- 最新版本请查阅官方文档 -->
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

@@ -1,6 +1,7 @@
 package top.boking.springbootseatatesttm.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class PostService extends ServiceImpl<PostMapper, Post> {
         QueryWrapper<Post> qwl = new QueryWrapper<>();
         qwl.eq("title",str);
         List<Post> posts = list(qwl);
+
         if (posts != null && posts.size() > 0) {
             Date nowDate = new Date();
             Post post = posts.getFirst();
