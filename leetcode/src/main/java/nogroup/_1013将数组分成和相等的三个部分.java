@@ -1,3 +1,5 @@
+package nogroup;
+
 public class _1013将数组分成和相等的三个部分 {
     public boolean canThreePartsEqualSum(int[] arr) {
         int count = 0;

@@ -25,16 +25,17 @@ public class JedisConfig {
     @Bean
     @ConditionalOnMissingBean
     public Jedis jedis() {
-        return new Jedis(new HostAndPort(ip, 7000));
+        return new Jedis(new HostAndPort(ip, 6379));
     }
 
+    /*
     @Bean
     @ConditionalOnMissingBean
     public JedisCluster jedisCluster() {
         Set<HostAndPort> clusterNodes = new HashSet<>();
-        clusterNodes.add(new HostAndPort(ip, 7000));
+        clusterNodes.add(new HostAndPort(ip, 6379));
         JedisCluster jedisCluster = new JedisCluster(clusterNodes);
         return jedisCluster;
     }
-
+*/
 }
