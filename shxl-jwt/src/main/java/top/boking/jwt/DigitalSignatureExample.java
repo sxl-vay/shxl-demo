@@ -1,4 +1,4 @@
-package tok.boking.jwt;
+package top.boking.jwt;
 
 import java.security.*;
 import java.util.Base64;
