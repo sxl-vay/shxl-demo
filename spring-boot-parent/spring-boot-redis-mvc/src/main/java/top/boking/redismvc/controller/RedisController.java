@@ -1,8 +1,6 @@
 package top.boking.redismvc.controller;
 
-import org.redisson.api.RLock;
-import org.redisson.api.RSet;
-import org.redisson.api.RedissonClient;
+import org.redisson.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +27,6 @@ public class RedisController {
 
     @Autowired
     private Jedis jedis;
-
-    @Autowired
-    private JedisCluster jedisCluster;
 
     private ThreadPoolExecutor singleThreadEventExecutor = new ThreadPoolExecutor(1,1,0,TimeUnit.SECONDS,new ArrayBlockingQueue<>(100));
 
@@ -69,6 +64,24 @@ public class RedisController {
             put("result", submit.get());
         }};
     }
+
+
+    @GetMapping("/getLimiter")
+    public Map<String, Object> getLimter(String name) throws IOException, ExecutionException, InterruptedException {
+        RRateLimiter rateLimiter = redissonClient.getRateLimiter(name);
+        rateLimiter.setRate(RateType.PER_CLIENT,10,10,RateIntervalUnit.MINUTES);
+        //rateLimiter.acquire(1);
+        return new HashMap<>() {{put("result", "ok");}};
+    }
+
+    @GetMapping("/limitacquire")
+    public Map<String, Object> limitAcquire(String name) throws IOException, ExecutionException, InterruptedException {
+        RRateLimiter rateLimiter = redissonClient.getRateLimiter(name);
+        rateLimiter.acquire(1);
+        return new HashMap<>() {{put("result", "ok");}};
+    }
+
+
 
 
 }

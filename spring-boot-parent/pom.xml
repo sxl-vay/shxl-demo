@@ -10,10 +10,14 @@
     </parent>
     <packaging>pom</packaging>
     <artifactId>spring-boot-parent</artifactId>
+
     <modules>
-        <module>spring-boot-jetcache-mvc</module>
-        <module>spring-boot-redis-mvc</module>
+        <module>spring-boot-seata-test-rm</module>
+        <module>spring-boot-seata-test-rm2</module>
+        <module>spring-boot-seata-test-tm</module>
         <module>spring-boot-web-test</module>
+        <module>spring-boot-redis-mvc</module>
+        <module>spring-boot-jetcache-mvc</module>
         <module>spring-boot-rabbitmq-mvc</module>
     </modules>
     <properties>
@@ -39,6 +43,38 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!--     Mybatis Plus    -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+
+        <!-- MyBatis-Plus Generator -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Druid 数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.22</version>
+        </dependency>
+
+        <dependency>
+            <groupId>top.boking</groupId>
+            <artifactId>base-local-config</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

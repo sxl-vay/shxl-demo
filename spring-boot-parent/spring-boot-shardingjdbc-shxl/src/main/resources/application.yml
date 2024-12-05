@@ -1,0 +1,21 @@
+server:
+  port: 1124
+spring:
+  application:
+    name: seata-rms
+      # 可选：指定配置组
+  datasource:
+    url: jdbc:mysql://47.101.167.248:3306/seata_rm?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      config:
+        server-addr: ${base.host}:8848
+        group: seata
+        namespace: a167d1a5-9427-4f78-a488-caab48aed290
+logging:
+  level:
+    com.baomidou.mybatisplus: info
+    org.apache.ibatis: info

@@ -22,8 +22,28 @@ public class ShxlThreadPool {
         return threadPoolExecutor;
     }
 
-    public static void main(String[] args) {
-        System.out.println("shxlLLL = " + args);
+    public static void main(String[] args) throws InterruptedException {
+        ThreadPoolExecutor executor = build();
+        for (int i = 0; i < 100; i++) {
+            executor.execute(()->{
+                long startTime = System.currentTimeMillis();
+                long duration = 10 * 1000; // 10 seconds in milliseconds
+                double result = 0;
+
+                System.out.println("Computation started...");
+
+                // Perform intensive computations until 10 seconds have passed
+                while (System.currentTimeMillis() - startTime < duration) {
+                    // Example of a computationally intensive task
+                    for (int j = 0; j < 1_000_000; j++) {
+                        result += Math.sin(j) * Math.cos(j); // Perform trigonometric operations
+                    }
+                }
+
+                System.out.println("Computation finished. Result: " + result);
+            });
+
+        }
     }
 
     private static Thread createThread(Runnable runnable) {

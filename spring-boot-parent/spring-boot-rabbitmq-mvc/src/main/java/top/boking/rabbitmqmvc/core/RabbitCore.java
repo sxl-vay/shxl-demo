@@ -4,6 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -19,12 +20,15 @@ public class RabbitCore {
 
     @Getter
     private static Channel channel;
+    @Value("${spring.rabbitmq.host}")
+    private String host;
 
     private static ConnectionFactory factory = new ConnectionFactory();
     private static Connection connection;
     static {
         try {
-            factory.setHost("localhost");
+            factory.setHost("192.168.0.103" +
+                    "");
             factory.setVirtualHost("shxl_host");
             connection = factory.newConnection();
         } catch (IOException e) {

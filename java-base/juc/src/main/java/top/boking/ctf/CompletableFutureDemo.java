@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class CompletableFutureDemo {
 
-    public static void main(String[] args) {
+    public static void mains(String[] args) {
         ThreadPoolExecutor shxlPool = ShxlThreadPool.build();
         // 创建三个异步任务
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {

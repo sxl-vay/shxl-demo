@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>top.boking</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <artifactId>spring-boot-starter-shxl-test</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

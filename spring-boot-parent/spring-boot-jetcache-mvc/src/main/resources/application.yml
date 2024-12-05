@@ -14,10 +14,13 @@ jetcache:
       valueDecoder: java
       defaultExpireInMillis: 5000
 
-# https://redisson.org/docs/integration-with-spring/
 server:
   port: 6377
 spring:
-  redis:
-    redisson:
-      file: classpath:redisson.yml
+  config:
+    import: classpath:base.yml
+
+# https://redisson.org/docs/integration-with-spring/
+#  redis:
+#    redisson:
+#      file: classpath:redisson.yml
