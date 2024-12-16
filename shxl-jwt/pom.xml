@@ -6,8 +6,9 @@
         <artifactId>shxl-demo</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-
+    <groupId>top.boking</groupId>
     <artifactId>shxl-jwt</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>shxl-jwt</name>

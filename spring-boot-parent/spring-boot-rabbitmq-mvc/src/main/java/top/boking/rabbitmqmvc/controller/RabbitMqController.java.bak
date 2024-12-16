@@ -1,18 +1,15 @@
 package top.boking.rabbitmqmvc.controller;
 
 import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.boking.rabbitmqmvc.core.ConsumerCore;
-import top.boking.rabbitmqmvc.core.RabbitCore;
 import top.boking.rabbitmqmvc.core.RabbitMqConsts;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,19 +121,9 @@ public class RabbitMqController {
         return "ok";
     }
 
-    @GetMapping("/consumer")
-    public String consumer(String queue, String type) {
-        ConsumerCore.ConsumerType consumerType = type == null ? ConsumerCore.ConsumerType.none : ConsumerCore.ConsumerType.valueOf(type);
-        ConsumerCore.consumer(queue, consumerType);
-        return "ok";
-    }
 
-    @GetMapping("/consumer1")
-    public String consumer1(String queue, String type) {
-        ConsumerCore.ConsumerType consumerType = type == null ? ConsumerCore.ConsumerType.none : ConsumerCore.ConsumerType.valueOf(type);
-        ConsumerCore.consumer1(queue, consumerType);
-        return "ok";
-    }
+
+
 
 
 }

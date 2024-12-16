@@ -5,6 +5,10 @@
         <groupId>top.boking</groupId>
         <artifactId>java-base</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
+    <groupId>top.boking</groupId>
+    <artifactId>nio</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>nio</name>
+    <description>spring-boot-seata-test-rm2</description>
 </project>

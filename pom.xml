@@ -39,7 +39,7 @@
         <module>leetcode</module>
         <module>spring-boot-parent/spring-boot-shardingjdbc-shxl</module>
         <module>java-base/nio</module>
-        <module>spring-boot-starter-test</module>
+        <module>spring-boot-starter-shxl-test</module>
         <module>shxl-jwt</module>
     </modules>
 
