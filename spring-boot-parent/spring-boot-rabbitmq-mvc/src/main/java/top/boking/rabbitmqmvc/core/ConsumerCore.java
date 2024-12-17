@@ -46,7 +46,7 @@ public class ConsumerCore {
 
     public void consumer(String queue, ConsumerType type, String listener) {
         String channelName;
-        if (listener == null || listener == "") {
+        if (listener == null || listener.isEmpty()) {
             channelName = queue+"::consumer";
         } else {
             channelName = queue +"listener:"+ listener + " consumer";
@@ -81,9 +81,10 @@ public class ConsumerCore {
                     */
                     channel.basicAck(deliveryTag, true);//确认消息
                     //拒绝消息  requeue 代表重复投递此消息
-                    channel.basicNack(envelope.getDeliveryTag(), false, false);
+                    //channel.basicNack(envelope.getDeliveryTag(), false, false);
                 }
             };
+
             //autoAck设置为false 则代表消息需要手动确认；
             channel.basicConsume(queueName, false, consumer);
         } catch (IOException e) {
@@ -93,6 +94,8 @@ public class ConsumerCore {
 
     private static void listenToStream(Channel channel, String streamName) {
         try {
+            //设置预期值 不设置默认为不限制，RabbitMQ 默认会无限制地推送消息，可能导致消费者内存过载。
+            channel.basicQos(1);
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
@@ -110,8 +113,6 @@ public class ConsumerCore {
                         byte[] body = message.getBody();
                         String messageStr = new String(body, StandardCharsets.UTF_8);
                         log.info("messageStr = " + messageStr);
-                        // message processing
-                        // ...
                         channel.basicAck(message.getEnvelope().getDeliveryTag(), false); // ack is required
                     },
                     consumerTag -> {

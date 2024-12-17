@@ -2,7 +2,7 @@ package top.boking.rabbitmqmvc.controller;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.impl.recovery.AutorecoveringChannel;
+import com.rabbitmq.client.MessageProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +11,8 @@ import top.boking.rabbitmqmvc.newcore.ChannelHolder;
 import top.boking.rabbitmqmvc.request.SentMsgRequest;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/rabbitmq2")
@@ -119,9 +121,11 @@ public class RabbitMqController2 {
         if (ttl != null && !"".equals(ttl)) {
             builder.expiration(ttl);
         }
+        //标准的持久化消息参数 deliveryMode = 2
+        AMQP.BasicProperties persistentTextPlain = MessageProperties.PERSISTENT_TEXT_PLAIN;
         AMQP.BasicProperties basicProperties = builder.build();
         String channelName = ex + "_send4ex";
-        AutorecoveringChannel newChannel = (AutorecoveringChannel)channelHolder.getChannel(channelName);
+        Channel newChannel = channelHolder.getChannel(channelName);
         newChannel.confirmSelect();
         newChannel.clearConfirmListeners();
         newChannel.addConfirmListener((sequenceNumber, multiple) -> {
@@ -131,11 +135,26 @@ public class RabbitMqController2 {
             log.info("nack-ed:sequenceNumber:{} -- multiple:{}",sequenceNumber,multiple);
             // code when message is nack-ed
         });
+        //启动事务消息，效率低
+        //newChannel.txSelect();
         for (Integer i = 0; i < request.getMultiple(); i++) {
             String msg ="multiple msg prefix:"+i+":::"+ request.getMsg();
             newChannel.basicPublish(ex, request.getRoutingKey(), basicProperties, msg.getBytes());
         }
+        // 确保消息写入磁盘
+        //newChannel.txCommit();
 
-        return "ok";
+        //等待所有的消息都被接受到（并不代表着所有的消息都被持久化了；也就是意味着如果mq崩溃，消息依旧可能会消失）
+        boolean b = newChannel.waitForConfirms();
+        return "ok"+b;
+    }
+
+    @GetMapping("/queue")
+    public Map<String, Object> queue(String name) throws IOException {
+        Channel channel = channelHolder.getChannel("queueDeclare");
+        channel.queueDeclare(name, true, false, false, null);
+        return new HashMap<>() {{
+            put("name", name);
+        }};
     }
 }
