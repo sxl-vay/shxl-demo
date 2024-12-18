@@ -4,6 +4,7 @@ import com.rabbitmq.client.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import top.boking.rabbitmqmvc.entity.ChannelObj;
 import top.boking.rabbitmqmvc.newcore.ChannelHolder;
 
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.util.Collections;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import static top.boking.rabbitmqmvc.util.AMQPUtils.getListenChannelName;
 
 /**
  * @Author shxl
@@ -46,11 +49,7 @@ public class ConsumerCore {
 
     public void consumer(String queue, ConsumerType type, String listener) {
         String channelName;
-        if (listener == null || listener.isEmpty()) {
-            channelName = queue+"::consumer";
-        } else {
-            channelName = queue +"listener:"+ listener + " consumer";
-        }
+        channelName = getListenChannelName(queue, listener);
         Channel channel = channelHolder.getChannel(channelName);
 
         switch (type) {
@@ -59,13 +58,15 @@ public class ConsumerCore {
         }
     }
 
+
+
     /**
      * 消费消息
      * @param channel
      * @param queueName
      * @param channelName
      */
-    private static void listenToQueue(Channel channel, String queueName, String channelName) {
+    private  void listenToQueue(Channel channel, String queueName, String channelName) {
         try {
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
@@ -84,9 +85,11 @@ public class ConsumerCore {
                     //channel.basicNack(envelope.getDeliveryTag(), false, false);
                 }
             };
-
             //autoAck设置为false 则代表消息需要手动确认；
-            channel.basicConsume(queueName, false, consumer);
+            String tag = channel.basicConsume(queueName, false, consumer);
+            ChannelObj channelObj = channelHolder.getChannelObj(channelName);
+            channelObj.setConsumerTag(tag);
+            log.info("Consumer tag:{}", tag);
         } catch (IOException e) {
             e.printStackTrace();
         }

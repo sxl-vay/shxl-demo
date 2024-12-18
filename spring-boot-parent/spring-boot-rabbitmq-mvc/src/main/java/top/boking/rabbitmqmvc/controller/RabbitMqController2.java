@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.boking.rabbitmqmvc.core.ConsumerCore;
+import top.boking.rabbitmqmvc.entity.ChannelObj;
 import top.boking.rabbitmqmvc.newcore.ChannelHolder;
 import top.boking.rabbitmqmvc.request.SentMsgRequest;
+import top.boking.rabbitmqmvc.util.AMQPUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -94,6 +96,7 @@ public class RabbitMqController2 {
         AMQP.BasicProperties basicProperties = builder.build();
         String channelName = ex + "_send4ex";
         Channel newChannel = channelHolder.getChannel(channelName);
+        //开启发布确认模式 （如果不开启这个模式，那么队列发送后会自动确认  newChannel.addConfirmListener 将不会有回调）
         //newChannel.confirmSelect();
         newChannel.addConfirmListener((sequenceNumber, multiple) -> {
             log.info("confirmed:sequenceNumber:{} -- multiple:{}",sequenceNumber,multiple);
@@ -126,6 +129,7 @@ public class RabbitMqController2 {
         AMQP.BasicProperties basicProperties = builder.build();
         String channelName = ex + "_send4ex";
         Channel newChannel = channelHolder.getChannel(channelName);
+        //开启发布确认模式
         newChannel.confirmSelect();
         newChannel.clearConfirmListeners();
         newChannel.addConfirmListener((sequenceNumber, multiple) -> {
@@ -156,5 +160,14 @@ public class RabbitMqController2 {
         return new HashMap<>() {{
             put("name", name);
         }};
+    }
+
+    @GetMapping("/unListen")
+    public Map<String, Object> unListen(String queue, String listener) throws IOException {
+        String listenChannelName = AMQPUtils.getListenChannelName(queue, listener);
+        ChannelObj channelObj = channelHolder.getChannelObj(listenChannelName);
+        Channel channel = channelObj.getChannel();
+        channel.basicCancel(channelObj.getConsumerTag());
+        return new HashMap<>();
     }
 }
