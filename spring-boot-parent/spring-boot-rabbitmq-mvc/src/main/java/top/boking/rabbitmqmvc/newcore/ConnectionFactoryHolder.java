@@ -15,6 +15,8 @@ public class ConnectionFactoryHolder {
     @Value("${spring.rabbitmq.virtual-host:null}")
     private String virtualHost;
     private static Connection connection;
+    @Value("${spring.rabbitmq.port}")
+    private int port;
 
     private static boolean initialized = false;
     public Connection getConnection() {
@@ -24,6 +26,9 @@ public class ConnectionFactoryHolder {
                 factory.setHost(host);
                 if (virtualHost != null && !"null".equals(virtualHost)) {
                     factory.setVirtualHost(virtualHost);
+                }
+                if (port != 0) {
+                    factory.setPort(port);
                 }
                 try {
                     connection = factory.newConnection();
