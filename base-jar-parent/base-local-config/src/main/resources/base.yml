@@ -1,13 +1,15 @@
 base:
-  host: 192.168.0.103
+  host: 192.168.18.124
   mysql:
     url: 47.101.167.248:3306
 # spring通用配置
 spring:
-  config:
-    import: classpath:base.yml
   datasource:
     url: jdbc:mysql://${base.mysql.url}/seata_rm?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${base.host}:8848

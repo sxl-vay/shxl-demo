@@ -26,6 +26,8 @@ spring:
     import: nacos:seata-tms,classpath:base.yml
   cloud:
     nacos:
+      discovery:
+        server-addr: ${base.host}:8848
       config:
         server-addr: ${base.host}:8848
         group: seata
@@ -69,6 +71,8 @@ dubbo:
       group: dubbo #首次启动前务必修改成你自己的
   consumer:
     timeout: 6000000
+    check: false #全局禁用dubbo启动校验
+#    loadbalance: shxl
   config-center:
     timeout: 6000000
 logging:

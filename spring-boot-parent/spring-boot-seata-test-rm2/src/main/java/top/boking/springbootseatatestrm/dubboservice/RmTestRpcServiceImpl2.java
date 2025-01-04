@@ -20,9 +20,9 @@ import java.util.Objects;
  * @Date 2024/10/26 18:16
  * @Version 1.0
  */
-@DubboService(group = "groupRm")
+@DubboService(group = "groupRm",weight = 111)
 @Slf4j
-public class RmTestRpcServiceImpl implements TestRpc {
+public class RmTestRpcServiceImpl2 implements TestRpc {
     @Resource
     private PostThumbService postThumbService;
     @Value("${spring.application.name}")
