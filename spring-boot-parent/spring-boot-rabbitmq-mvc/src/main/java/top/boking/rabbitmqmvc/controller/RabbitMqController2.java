@@ -11,6 +11,7 @@ import top.boking.rabbitmqmvc.entity.ChannelObj;
 import top.boking.rabbitmqmvc.newcore.ChannelHolder;
 import top.boking.rabbitmqmvc.request.SentMsgRequest;
 import top.boking.rabbitmqmvc.util.AMQPUtils;
+import top.boking.rabbitmqmvc.util.MessageHelper;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -142,7 +143,7 @@ public class RabbitMqController2 {
         //启动事务消息，效率低
         //newChannel.txSelect();
         for (Integer i = 0; i < request.getMultiple(); i++) {
-            String msg ="multiple msg prefix:"+i+":::"+ request.getMsg();
+            String msg = MessageHelper.buildMsg(request, i);
             newChannel.basicPublish(ex, request.getRoutingKey(), basicProperties, msg.getBytes());
         }
         // 确保消息写入磁盘
@@ -152,6 +153,8 @@ public class RabbitMqController2 {
         boolean b = newChannel.waitForConfirms();
         return "ok"+b;
     }
+
+
 
     @GetMapping("/queue")
     public Map<String, Object> queue(String name) throws IOException {

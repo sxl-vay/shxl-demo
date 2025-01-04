@@ -1,15 +1,19 @@
 package top.boking.rabbitmqmvc.request;
 
+import com.alibaba.fastjson2.JSONObject;
 import lombok.Data;
+import top.boking.rabbitmqmvc.enums.MessageType;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 @Data
 public class SentMsgRequest implements Serializable {
     /**
      * 消息内容
      */
-    private String msg;
+    private Object msg;
     /**
      * 交换机名称
      */
@@ -63,6 +67,26 @@ public class SentMsgRequest implements Serializable {
             return "multiple msg prefix:"+i;
         }
         return "";
+    }
+
+    public String getMsgStr() {
+        if (msg instanceof String) {
+            return (String) msg;
+        } else if (msg instanceof List || msg instanceof Map) {
+            return JSONObject.toJSONString(msg);
+        }
+        return msg.toString();
+    }
+
+    public MessageType getMessageType() {
+        if (msg instanceof String) {
+            return MessageType.STRING;
+        } else if (msg instanceof List) {
+            return MessageType.LIST;
+        } else if (msg instanceof Map) {
+            return MessageType.MAP;
+        }
+        return null;
     }
 
     /**
