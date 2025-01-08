@@ -23,7 +23,7 @@ import java.util.Map;
 @Service
 @Slf4j
 public class SeataService {
-    @DubboReference(group = "groupRm")
+    @DubboReference(group = "groupRm",loadbalance = "roundrobin")
     private TestRpc testRpc;
 
     @DubboReference(group = "groupRm")

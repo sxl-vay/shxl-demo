@@ -20,7 +20,7 @@ import java.util.Objects;
  * @Date 2024/10/26 18:16
  * @Version 1.0
  */
-@DubboService(group = "groupRm",weight = 111)
+@DubboService(group = "groupRm")
 @Slf4j
 public class RmTestRpcServiceImpl2 implements TestRpc {
     @Resource
@@ -30,6 +30,7 @@ public class RmTestRpcServiceImpl2 implements TestRpc {
 
     @Override
     public String simpleRpc(String str) {
+        log.info(str);
         return "rm rpc result:" + str+" with "+applicationName;
     }
 

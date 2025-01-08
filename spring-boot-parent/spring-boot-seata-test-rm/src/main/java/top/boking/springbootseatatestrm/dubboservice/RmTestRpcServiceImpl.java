@@ -30,6 +30,7 @@ public class RmTestRpcServiceImpl implements TestRpc {
 
     @Override
     public String simpleRpc(String str) {
+        log.info(str);
         return "rm rpc result:" + str+" with "+applicationName;
     }
 
