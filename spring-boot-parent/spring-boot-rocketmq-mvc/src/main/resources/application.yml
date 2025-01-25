@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: spring-boot-rocketmq-mvc
+  config:
+    import: classpath:base.yml
+  datasource:
+    url: jdbc:mysql://${base.mysql.url}/seata_rm?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+  port: 8080
+rocketmq:
+  name-server: 192.168.18.124:9876
+  producer:
+    group: test
+  consumer:
+    group: test
+
