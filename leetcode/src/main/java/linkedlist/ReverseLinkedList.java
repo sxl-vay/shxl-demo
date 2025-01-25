@@ -1,5 +1,7 @@
 package linkedlist;
 
+import POJO.ListNode;
+
 import java.util.List;
 
 public class ReverseLinkedList {

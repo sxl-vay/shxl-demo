@@ -32,7 +32,6 @@
         <module>java-base</module>
         <module>spring-boot-parent</module>
         <module>spring-boot-parent/spring-boot-web-test</module>
-        <module>rabbitmq-test</module>
         <module>caffeine-and-jetcache</module>
         <module>spring-boot-starter-shxl-test</module>
         <module>base-jar-parent</module>
@@ -210,10 +209,13 @@
                 <version>3.18.1</version>
             </dependency>
 
+
+
+            <!-- RocketMQ Spring Boot Starter -->
             <dependency>
                 <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-client-java</artifactId>
-                <version>5.0.5</version>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>2.3.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

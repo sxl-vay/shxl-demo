@@ -53,7 +53,6 @@ public class SeataService {
     }
 
 
-    @GlobalTransactional
     public String tcc(Post post) {
         BusinessActionContext actionContext = new BusinessActionContext();
 

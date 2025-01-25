@@ -19,6 +19,7 @@
         <module>spring-boot-redis-mvc</module>
         <module>spring-boot-jetcache-mvc</module>
         <module>spring-boot-rabbitmq-mvc</module>
+        <module>spring-boot-rocketmq-mvc</module>
     </modules>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

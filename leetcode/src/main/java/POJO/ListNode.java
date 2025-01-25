@@ -1,4 +1,4 @@
-package linkedlist;
+package POJO;
 
 import java.util.ArrayList;
 import java.util.List;

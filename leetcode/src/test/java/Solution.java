@@ -1,4 +1,4 @@
-import linkedlist.ListNode;
+import POJO.ListNode;
 
 /**
  * Definition for singly-linked list.

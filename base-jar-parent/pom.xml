@@ -13,6 +13,8 @@
     <modules>
         <module>dubbo-api-jar</module>
         <module>base-local-config</module>
+        <module>rabbitmq-test</module>
+        <module>rocketmq-test</module>
     </modules>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
