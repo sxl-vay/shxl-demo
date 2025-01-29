@@ -12,6 +12,7 @@
     <artifactId>spring-boot-parent</artifactId>
 
     <modules>
+        <module>spring-boot-elasticsearch-test</module>
         <module>spring-boot-seata-test-rm</module>
         <module>spring-boot-seata-test-rm2</module>
         <module>spring-boot-seata-test-tm</module>
