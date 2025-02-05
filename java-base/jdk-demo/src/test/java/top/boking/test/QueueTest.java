@@ -7,7 +7,13 @@ package top.boking.test;
  */
 public class QueueTest {
     public static void main(String[] args) {
+        char a = 'a';
+        char A = 'A';
+        char Space = ' ';
+        int x = a;
 
-
+        System.out.println("a = " + (int) a);
+        System.out.println("A = " + (int) A);
+        System.out.println("Space = " + (int) Space);
     }
 }
