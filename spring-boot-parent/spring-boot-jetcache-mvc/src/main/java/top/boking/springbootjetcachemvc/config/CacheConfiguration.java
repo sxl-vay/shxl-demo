@@ -31,7 +31,7 @@ public class CacheConfiguration {
 
     private void loadSingleServerConfig(Config config) {
         SingleServerConfig singleServerConfig = config.useSingleServer();
-        singleServerConfig.setAddress("redis://192.168.0.103:6379");
+        singleServerConfig.setAddress("redis://"+host+":6379");
     }
 
     private void loadClusterServerConfig(Config config) {
