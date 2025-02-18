@@ -1,13 +1,12 @@
-package top.boking.rocketmq.controller;
+package top.boking.rocketmq.normal.controller;
 
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.boking.rocketmq.consumer.MessageConsumer;
-import top.boking.rocketmq.producer.MessageProducer;
-import top.boking.rocketmq.producer.TransactionMessageProducer;
+import top.boking.rocketmq.normal.consumer.MessageConsumer;
+import top.boking.rocketmq.normal.producer.MessageProducer;
 
 @RestController
 public class MessageController {
@@ -16,8 +15,6 @@ public class MessageController {
     private MessageProducer messageProducer;
     @Resource
     private MessageConsumer messageConsumer;
-    @Resource
-    private TransactionMessageProducer transactionMessageProducer;
 
     @GetMapping("/send")
     public String sendMessage(@RequestParam String message
@@ -27,14 +24,6 @@ public class MessageController {
             , @RequestParam(required = false, defaultValue = "test-tag") String tag
     ) {
         messageProducer.sendMessage(topic, delay, message, order, tag);
-        return "消息发送成功";
-    }
-
-    @GetMapping("/sendt")
-    public String sendMessageT(@RequestParam String message
-            , @RequestParam(required = false, defaultValue = "tx-topic") String topic
-    ) {
-       transactionMessageProducer.sendTransactionMessage(topic,message);
         return "消息发送成功";
     }
 

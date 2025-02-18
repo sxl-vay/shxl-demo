@@ -1,4 +1,4 @@
-package top.boking.rocketmq.consumer;
+package top.boking.rocketmq.normal.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultLitePullConsumer;

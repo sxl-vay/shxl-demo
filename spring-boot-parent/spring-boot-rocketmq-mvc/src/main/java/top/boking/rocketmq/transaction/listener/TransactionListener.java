@@ -1,4 +1,4 @@
-package top.boking.rocketmq.consumer;
+package top.boking.rocketmq.transaction.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.RocketMQTransactionListener;
@@ -11,14 +11,15 @@ import org.springframework.stereotype.Component;
 @RocketMQTransactionListener
 @Component
 @Slf4j
-public class CustomTransactionListener implements RocketMQLocalTransactionListener {
+public class TransactionListener implements RocketMQLocalTransactionListener {
     
     @Override
     public RocketMQLocalTransactionState executeLocalTransaction(Message msg, Object arg) {
         try {
             // 执行本地事务
-            String transactionId = msg.getHeaders().get(RocketMQHeaders.TRANSACTION_ID, String.class);
+            String transactionId = msg.getHeaders().get(RocketMQHeaders.PREFIX+RocketMQHeaders.TRANSACTION_ID, String.class);
             String body = new String((byte[]) msg.getPayload());
+            Thread.sleep(Long.valueOf(body));
             log.info("执行本地事务，事务ID: {}, 消息内容: {}", transactionId, body);
             
             // 这里执行您的业务逻辑
@@ -34,11 +35,11 @@ public class CustomTransactionListener implements RocketMQLocalTransactionListen
     @Override
     public RocketMQLocalTransactionState checkLocalTransaction(Message msg) {
         // 回查本地事务状态
-        String transactionId = msg.getHeaders().get(RocketMQHeaders.TRANSACTION_ID, String.class);
+        String transactionId = msg.getHeaders().get(RocketMQHeaders.PREFIX+RocketMQHeaders.TRANSACTION_ID, String.class);
         log.info("回查本地事务状态，事务ID: {}", transactionId);
         
         // 这里检查本地事务状态
         // 根据实际情况返回：COMMIT、ROLLBACK 或 UNKNOWN
-        return RocketMQLocalTransactionState.COMMIT;
+        return RocketMQLocalTransactionState.UNKNOWN;
     }
 }
