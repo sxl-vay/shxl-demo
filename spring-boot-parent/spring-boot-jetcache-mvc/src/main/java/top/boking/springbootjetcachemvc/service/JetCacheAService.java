@@ -1,8 +1,11 @@
 package top.boking.springbootjetcachemvc.service;
 
-import com.alicp.jetcache.anno.CacheRefresh;
+import com.alicp.jetcache.anno.CacheInvalidate;
+import com.alicp.jetcache.anno.CachePenetrationProtect;
 import com.alicp.jetcache.anno.Cached;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import top.boking.springbootjetcachemvc.refresh.RedissonPublisher;
 
 /**
  * @Author shxl
@@ -12,18 +15,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class JetCacheAService {
 
-    //@CacheInvalidate(name = "aService",key = "#aKey.id")
+    private String v = "init";
 
+    @Resource
+    private RedissonPublisher redissonPublisher;
 
-    @Cached(name = "aService",key = "#cacheKey",expire = 1000)
-    @CacheRefresh(refresh = 1000)
+    private static final String CACHE_NAME = "userCache";
+
+    @Cached(name = CACHE_NAME,key = "#cacheKey",expire = 1000)
+    @CachePenetrationProtect
     public String getCacheKey(String cacheKey) {
-        try {
-            Thread.sleep(3000);
-        } catch (Exception e) {
-
-        }
         System.out.println("shxl:::"+cacheKey);
-        return cacheKey+":value";
+        return cacheKey+":::"+v;
+    }
+
+    @CacheInvalidate(name = CACHE_NAME, key = "#cacheKey")
+    public void updateUser(String cacheKey, String newValue) {
+        System.out.println("[DB] 更新 userId=" + cacheKey + " 为：" + newValue);
+        v = newValue;
+        // 远程缓存已通过 @CacheInvalidate 失效
+        // 额外发布 Redisson 失效通知，通知其他节点清理本地缓存
+        redissonPublisher.publishCacheInvalidation(cacheKey);
     }
 }
