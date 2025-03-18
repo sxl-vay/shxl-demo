@@ -67,7 +67,7 @@ dubbo:
   registry:
     address: nacos://${base.host}:8848?username=nacos&password=nacos
     parameters:
-      namespace: 90099803-50cd-469c-a064-dab6010ad773
+      namespace: shxl-demo-dubbo
       group: dubbo #首次启动前务必修改成你自己的
   consumer:
     timeout: 6000000

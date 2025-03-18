@@ -1,5 +1,5 @@
 base:
-  host: 192.168.18.124
+  host: localhost
   mysql:
     url: 47.101.167.248:3306
 # spring通用配置
