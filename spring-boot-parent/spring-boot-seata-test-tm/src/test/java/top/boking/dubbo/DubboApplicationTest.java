@@ -15,9 +15,9 @@ public class DubboApplicationTest {
         //建造造dubbo服务
         DubboBootstrap instance = DubboBootstrap.getInstance();
         instance.application(new ApplicationConfig("dubbo-application"))
+                .service(serviceConfig)
                 .registry(new RegistryConfig("nacos://192.168.42.234:8848"))
                 .protocol(new ProtocolConfig("dubbo", 20880))
-                .service(serviceConfig)
                 .start()
                 .await();
     }
