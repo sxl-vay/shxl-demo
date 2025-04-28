@@ -40,6 +40,8 @@
         <module>java-base/nio</module>
         <module>spring-boot-starter-shxl-test</module>
         <module>shxl-jwt</module>
+        <module>milvus-study</module>
+        <module>shxl-netty-study</module>
     </modules>
 
     <dependencies>

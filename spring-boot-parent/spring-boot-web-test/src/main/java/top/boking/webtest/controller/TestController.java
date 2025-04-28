@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.boking.webtest.config.TestStartConfig;
@@ -35,6 +36,22 @@ public class TestController {
 
     @GetMapping("/a")
     public String a(HttpServletRequest request) {
+        String contextPath = request.getContextPath();
+        log.info(contextPath);
+        return "shxl";
+//        return aopService.t1(p);
+    }
+
+    @GetMapping("/b")
+    public String b(HttpServletRequest request) {
+        String contextPath = request.getContextPath();
+        log.info(contextPath);
+        return "shxl";
+//        return aopService.t1(p);
+    }
+
+    @PostMapping("/p")
+    public String p(HttpServletRequest request) {
         String contextPath = request.getContextPath();
         log.info(contextPath);
         return "shxl";
