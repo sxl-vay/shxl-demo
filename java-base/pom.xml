@@ -15,6 +15,7 @@
         <module>jdk-demo</module>
         <module>juc</module>
         <module>nio</module>
+        <module>serialization</module>
     </modules>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
