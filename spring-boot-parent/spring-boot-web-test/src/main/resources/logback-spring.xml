@@ -15,7 +15,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}/web-test.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/web-test.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/web-test.%d{kkyyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>1MB</maxFileSize>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
