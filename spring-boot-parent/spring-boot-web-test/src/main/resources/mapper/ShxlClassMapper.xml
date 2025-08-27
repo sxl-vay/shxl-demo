@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.boking.webtest.transation.mapper.ShxlClassMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="top.boking.webtest.transation.domain.ShxlClass">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="class_no" property="classNo" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, class_no, create_time, update_time, is_deleted
+    </sql>
+
+    <!-- 根据班级编号查询班级信息 -->
+    <select id="selectByClassNo" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM shxl_class 
+        WHERE class_no = #{classNo} 
+        AND is_deleted = 0
+    </select>
+
+    <!-- 根据班级名称模糊查询 -->
+    <select id="selectByNameLike" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column_List" />
+        FROM shxl_class 
+        WHERE name LIKE CONCAT('%', #{name}, '%') 
+        AND is_deleted = 0
+    </select>
+
+</mapper> 
