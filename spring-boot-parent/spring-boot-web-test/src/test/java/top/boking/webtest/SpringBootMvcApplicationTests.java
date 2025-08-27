@@ -6,19 +6,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 import top.boking.webtest.controller.TestController;
 import top.boking.webtest.service.AopService;
+import top.boking.webtest.transation.service.ShxlClassService;
 
 @SpringBootTest
 class SpringBootMvcApplicationTests {
     @Autowired
-    private TestController testController;
+    private ShxlClassService shxlClassService;
 
-    @Autowired
-    private AopService aopService;
 
     @Test
     void contextLoads() {
-        String s = aopService.t1("ttt");
-        Assert.notNull(s,"s null");
+
+        shxlClassService.removeByClassNo("SE001");
+
+
     }
 
 }

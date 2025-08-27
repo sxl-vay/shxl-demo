@@ -17,6 +17,9 @@
     <sql id="Base_Column_List">
         id, name, class_id, student_no, create_time, update_time, is_deleted
     </sql>
+    <delete id="deleteByClassId">
+        DELETE FROM student WHERE class_id = #{classId}
+    </delete>
 
     <!-- 根据班级ID查询学生列表 -->
     <select id="selectByClassId" resultMap="BaseResultMap">

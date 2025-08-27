@@ -9,4 +9,6 @@ import top.boking.webtest.transation.domain.Student;
  * @date 2024/01/01
  */
 public interface StudentService extends IService<Student> {
+
+    void removeByClassId(Long classId);
 } 

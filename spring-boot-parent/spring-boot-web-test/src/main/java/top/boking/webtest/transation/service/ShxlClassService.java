@@ -11,4 +11,6 @@ import top.boking.webtest.transation.domain.ShxlClass;
  */
 public interface ShxlClassService extends IService<ShxlClass> {
 
+    void removeByClassNo(String classNo);
+
 } 

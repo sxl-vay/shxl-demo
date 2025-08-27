@@ -11,4 +11,7 @@ import top.boking.webtest.transation.domain.Student;
  */
 @Mapper
 public interface StudentMapper extends BaseMapper<Student> {
+
+    void deleteByClassId(Long classId);
+
 } 
